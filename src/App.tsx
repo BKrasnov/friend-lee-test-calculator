@@ -1,5 +1,11 @@
-function App() {
-  return <div>App</div>;
-}
+import { FC } from 'react';
 
-export default App;
+import { CalculatorPage } from './features/calculator';
+
+export const App: FC = () => {
+  return (
+    <div className="container">
+      <CalculatorPage />
+    </div>
+  );
+};
