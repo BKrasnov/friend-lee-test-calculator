@@ -2,8 +2,19 @@ import { FC, memo } from 'react';
 
 import './Button.scss';
 
-const FormComponent: FC = () => {
-  return <button>Кнопка</button>;
+interface IButtonProps {
+  children: React.ReactNode;
+  disabled?: boolean;
+}
+
+const ButtonComponent: FC<IButtonProps> = ({ children, disabled = false }) => {
+  return (
+    <>
+      <button type="submit" className="button nekst-black-m" disabled={disabled}>
+        {children}
+      </button>
+    </>
+  );
 };
 
-export const Form = memo(FormComponent);
+export const Button = memo(ButtonComponent);

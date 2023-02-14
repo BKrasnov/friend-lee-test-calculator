@@ -1,0 +1,46 @@
+@import '../../style/base';
+
+.button {
+  width: 100%;
+  max-width: 426px;
+  padding-top: 17px;
+  padding-bottom: 15px;
+  font-size: 30px;
+  color: #fff;
+  background-color: $primary-color;
+  border: none;
+  border-radius: 40px;
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $black-color;
+  }
+
+  &:active {
+    background-color: $secondary-color;
+  }
+
+  &:disabled {
+    background: rgba(255, 149, 20, 0.4);
+
+    &:hover {
+      background: rgba(255, 149, 20, 0.4);
+    }
+  }
+}
+
+@include tablet {
+  .button {
+    margin-top: 44px;
+    width: 345px;
+  }
+}
+
+@include mobile {
+  .button {
+    margin-top: 32px;
+    width: 100%;
+    max-width: 280px;
+  }
+}
