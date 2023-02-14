@@ -11,45 +11,64 @@
   color: $secondary-color;
 }
 
-.input-range__value {
-  border: none;
-  width: 100%;
-  height: 68px;
-  padding: 16px 24px;
-  color: $secondary-color;
-  background: $grey-color;
-  border-radius: 16px;
-  border: 3px solid white;
-  &:focus {
-    outline: none;
-    border: 3px solid $grey-color;
-    background: white;
-  }
-}
-
 .input-range__input {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: none;
+  height: 68px;
+  padding: 0 24px;
+  color: $secondary-color;
+  background: $grey-color;
+  border-radius: 16px;
+
+  &:focus {
+    background: $grey-color;
+    color: red;
+  }
 }
 
-.input-range__type {
-  position: relative;
-  right: 56px;
+.input-range__value {
+  width: 100%;
+  height: 100%;
+  border: none;
+
+  background: $grey-color;
+  &:focus,
+  :active {
+    outline: none;
+  }
+}
+
+.input-range__percent {
+  background: #e0e0e0;
+
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 18px;
+  width: 67px;
+  height: 48px;
   color: $secondary-color;
+  border: none;
+
+  &:focus,
+  :active {
+    outline: none;
+  }
 }
 
 .input-range__slider {
   position: relative;
   -webkit-appearance: none;
   appearance: none;
-  background-size: 30px;
-  width: 70%;
+  width: 90%;
   height: 2px;
   display: flex;
   justify-content: center;
   background: $primary-color;
-  margin: 0 30px;
-  margin-top: -4px;
+  margin: 0 15px;
+  margin-top: -2px;
   border-radius: 3px;
 
   &::-webkit-slider-thumb {
