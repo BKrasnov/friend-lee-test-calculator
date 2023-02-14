@@ -1,0 +1,35 @@
+/* Шрифты */
+@mixin font($font: $font_regular) {
+  /* Gilroy */
+  @if $font == Gilroy {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  /* Nekst-black */
+  @if $font == Nekst-Black {
+    font-family: 'Nekst-Black', sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+}
+
+/* Размеры экранов */
+@mixin laptop {
+  @media screen and (max-width: ($desktop-width - 1px)) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: ($laptop-width - 1px)) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: ($tablet-width - 1px)) {
+    @content;
+  }
+}
