@@ -1,0 +1,20 @@
+@import './mixin';
+
+/* Общий */
+$primary-color: #ff9514;
+
+$secondary-color: #575757;
+
+$black-color: #111111;
+$grey-color: #f3f3f4;
+$dark-gray-color: #333333;
+
+/* Шрифты (названия в миксинах) */
+$font_gilroy-regular: Gilroy;
+$font_nekst-black: Nekst-Black;
+
+/* Разрешения экранов */
+$desktop-width: 1440px;
+$laptop-width: 1120px;
+$tablet-width: 768px;
+$mobile-width: 320px;
