@@ -1,0 +1,43 @@
+@import '../../../../style/base';
+
+.text-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.text-field__title {
+  color: $secondary-color;
+  font-size: 16px;
+}
+
+.text-field__price {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+  min-width: 300px;
+  color: $dark-gray-color;
+}
+
+.text-field__currency {
+  margin-top: -10px;
+}
+
+@include mobile {
+  .text-field {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+  }
+  .text-field__price {
+    line-height: 19px;
+  }
+
+  .text-field__currency {
+    margin-top: -4px;
+  }
+
+  .text-field__price {
+    min-width: 0px;
+  }
+}
