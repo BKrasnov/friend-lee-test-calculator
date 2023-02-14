@@ -1,10 +1,11 @@
-import { FC, memo, useState } from 'react';
+import { FC, memo, useMemo, useState } from 'react';
 
 import { InputRange } from '../../components/InputRange';
-import { TextField } from './components/TextField';
 import { Button } from '../../components/Button';
+import { TextField } from './components/TextField';
 
-import { INITIAL_PERCENT } from '../../core/constants/calculator';
+import { INITIAL_CAR_COST, INITIAL_LEASING_PERIOD, INITIAL_PERCENT } from '../../core/constants/calculator';
+import { calculateLeasingAgreementValue, calculateMonthPay } from '../../core/utils/calculator';
 
 import './CalculatorPage.scss';
 
@@ -17,16 +18,22 @@ const MAX_PERCENT_CONTRIBUTION = 60;
 const MIN_LEASING_PERIOD = 6;
 const MAX_LEASING_PERIOD = 120;
 
-const INITIAL_CAR_COST = 3_300_300;
-
-const INITIAL_LEASING_PERIOD = 60;
-
 const CalculatorPageComponent: FC = () => {
   const [carCost, setCarCost] = useState(INITIAL_CAR_COST);
   const [percent, setPercent] = useState(INITIAL_PERCENT);
   const [leasingPeriod, setLeasingPeriod] = useState(INITIAL_LEASING_PERIOD);
 
   const contribution = Math.ceil((carCost * percent) / 100);
+
+  const monthPay = useMemo(
+    () => calculateMonthPay(carCost, contribution, leasingPeriod),
+    [carCost, contribution, leasingPeriod]
+  );
+
+  const leasingAgreementValue = useMemo(
+    () => calculateLeasingAgreementValue(carCost, contribution, leasingPeriod),
+    [carCost, contribution, leasingPeriod]
+  );
 
   return (
     <main className="calculator">
@@ -39,31 +46,31 @@ const CalculatorPageComponent: FC = () => {
               type="currency"
               value={carCost}
               setValue={setCarCost}
-              max={MAX_CAR_COST}
               min={MIN_CAR_COST}
+              max={MAX_CAR_COST}
             />
             <InputRange
-              setValue={setPercent}
               title="Первоначальный взнос"
               type="percent"
               value={contribution}
               percent={percent}
-              max={MAX_PERCENT_CONTRIBUTION}
+              setValue={setPercent}
               min={MIN_PERCENT_CONTRIBUTION}
+              max={MAX_PERCENT_CONTRIBUTION}
             />
             <InputRange
-              setValue={setLeasingPeriod}
               title="Срок лизинга"
               type="months"
               value={leasingPeriod}
+              setValue={setLeasingPeriod}
               min={MIN_LEASING_PERIOD}
               max={MAX_LEASING_PERIOD}
             />
           </div>
           <div className="calculator__bottom">
             <div className="calculator__cost">
-              <TextField title="Сумма договора лизинга" price={'41 467 313'} currency="₽" />
-              <TextField title="Ежемесячный платеж" price={'114 455'} currency="₽" />
+              <TextField title="Сумма договора лизинга" price={leasingAgreementValue} currency="₽" />
+              <TextField title="Ежемесячный платеж" price={monthPay} currency="₽" />
             </div>
             <Button>Оставить заявку</Button>
           </div>
