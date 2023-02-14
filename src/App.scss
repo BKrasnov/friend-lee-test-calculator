@@ -1,3 +1,17 @@
+@import './style/base.scss';
+
 .container {
-  margin: 213px 47px;
+  margin: 213px 48px;
+}
+
+@include tablet {
+  .container {
+    margin: 44px 36px 86px 36px;
+  }
+}
+
+@include mobile {
+  .container {
+    margin: 64px 20px 156px 20px;
+  }
 }
