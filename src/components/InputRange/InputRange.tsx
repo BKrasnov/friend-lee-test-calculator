@@ -25,7 +25,7 @@ const renderInputRangeValue = (
     return <span>₽</span>;
   }
   if (type === 'percent') {
-    return <input className="input-range__percent" onChange={handleChange} value={`${value}%`} max={60} min={10} />;
+    return <input className="input-range__percent" onChange={handleChange} value={value + '%'} max={60} min={10} />;
   }
   if (type === 'months') {
     return <span>мес.</span>;
@@ -45,6 +45,10 @@ const InputRangeComponent: FC<IInputProps> = ({
     const value = e.target.value.replace(/\s/g, '');
     if (Number(value) > max) {
       setValue(max);
+      return;
+    }
+    if (Number(value) < min) {
+      setValue(min);
       return;
     }
     if (Number.isNaN(Number(value))) {
@@ -70,7 +74,7 @@ const InputRangeComponent: FC<IInputProps> = ({
         type="range"
         min={min}
         max={max}
-        defaultValue={type === 'percent' ? INITIAL_PERCENT : value}
+        defaultValue={type === 'percent' ? percent : value}
         onChange={(e) => setValue(e.target.valueAsNumber)}
       />
     </div>
