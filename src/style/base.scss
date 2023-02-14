@@ -1,0 +1,33 @@
+@import './variable';
+@import './mixin';
+
+/* XL - 54px, L - 48, M - 30px, S - 16px */
+
+/* Nekst black шрифт */
+.nekst-black-xl {
+  @include font($font_nekst-black);
+  font-size: 54px;
+
+  @include mobile {
+    font-size: 22px;
+  }
+}
+
+.nekst-black-m {
+  @include font($font_nekst-black);
+  font-size: 30px;
+
+  @include mobile {
+    font-size: 22px;
+  }
+}
+
+/* Gilroy шрифт */
+.gilroy-s {
+  @include font($font_gilroy-regular);
+  font-size: 16px;
+
+  @include mobile {
+    font-size: 14px;
+  }
+}
