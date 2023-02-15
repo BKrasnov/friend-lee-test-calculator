@@ -3,6 +3,9 @@
 ## Технологии 
 `React, TypeScript, SCSS`
 
+## Deploy
+https://bkrasnov.github.io
+
 ## Установка зависимостей и запуск проекта
 npm i  
 npm start
