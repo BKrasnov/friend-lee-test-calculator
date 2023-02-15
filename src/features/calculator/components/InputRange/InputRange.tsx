@@ -33,7 +33,6 @@ const renderInputRangeValue = (
   }
 };
 
-/** @todo Перенести компонент в feature/calculator, так как он связан именно с ним */
 const InputRangeComponent: FC<Readonly<IInputProps>> = ({
   title,
   value,
@@ -43,7 +42,6 @@ const InputRangeComponent: FC<Readonly<IInputProps>> = ({
   max,
   percent = INITIAL_PERCENT,
 }) => {
-  /** @todo Попробовать убрать все эти ифы. */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\s/g, '');
     if (Number(value) > max) {
