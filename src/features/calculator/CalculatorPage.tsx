@@ -1,41 +1,83 @@
-import { FC, memo } from 'react';
+import { FC, memo, useCallback, useMemo, useState } from 'react';
 
-import { InputRange } from '../../components/InputRange';
-import { TextField } from './components/TextField';
+import { InputRange } from './components/InputRange';
 import { Button } from '../../components/Button';
+import { TextField } from '../../components/TextField';
+
+import { INITIAL_CAR_COST, INITIAL_LEASING_PERIOD, INITIAL_PERCENT } from '../../core/constants/calculator';
+import { calculateLeasingAgreementValue, calculateMonthPay } from '../../core/utils/calculator';
 
 import './CalculatorPage.scss';
 
 const MIN_CAR_COST = 1_500_000;
 const MAX_CAR_COST = 10_000_000;
+const MIN_PERCENT_CONTRIBUTION = 10;
+const MAX_PERCENT_CONTRIBUTION = 60;
+const MIN_LEASING_PERIOD = 6;
+const MAX_LEASING_PERIOD = 120;
 
 const CalculatorPageComponent: FC = () => {
+  const [carCost, setCarCost] = useState(INITIAL_CAR_COST);
+  const [percent, setPercent] = useState(INITIAL_PERCENT);
+  const [leasingPeriod, setLeasingPeriod] = useState(INITIAL_LEASING_PERIOD);
+
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const contribution = Math.ceil((carCost * percent) / 100);
+
+  const monthPay = useMemo(
+    () => calculateMonthPay(carCost, contribution, leasingPeriod),
+    [carCost, contribution, leasingPeriod]
+  );
+  const leasingAgreementValue = useMemo(
+    () => calculateLeasingAgreementValue(carCost, contribution, leasingPeriod),
+    [carCost, contribution, leasingPeriod]
+  );
+
+  const handleClick = useCallback(() => {
+    setIsDisabled((prevState) => !prevState);
+  }, []);
+
   return (
-    <section className="calculator">
+    <main className="calculator">
       <h1 className="h1 nekst-black-xl">Рассчитайте стоимость автомобиля в лизинг</h1>
-      <div className="calculator__wrapper">
-        <form className="calculator__form">
-          <div className="calculator__range">
-            <InputRange
-              title="Стоимость автомобиля"
-              type="currency"
-              value={33303300}
-              max={MAX_CAR_COST}
-              min={MIN_CAR_COST}
-            />
-            <InputRange title="Первоначальный взнос" type="percent" value={420000} max={60} min={10} />
-            <InputRange title="Срок лизинга" type="months" value={60} min={6} max={120} />
-          </div>
-          <div className="calculator__bottom">
-            <div className="calculator__cost">
-              <TextField title="Сумма договора лизинга" price={'41 467 313'} currency="₽" />
-              <TextField title="Ежемесячный платеж" price={'114 455'} currency="₽" />
-            </div>
-            <Button>Оставить заявку</Button>
-          </div>
-        </form>
+      <div className="calculator__inputs-range">
+        <InputRange
+          title="Стоимость автомобиля"
+          type="currency"
+          value={carCost}
+          setValue={setCarCost}
+          min={MIN_CAR_COST}
+          max={MAX_CAR_COST}
+        />
+        <InputRange
+          title="Первоначальный взнос"
+          type="percent"
+          value={contribution}
+          percent={percent}
+          setValue={setPercent}
+          min={MIN_PERCENT_CONTRIBUTION}
+          max={MAX_PERCENT_CONTRIBUTION}
+        />
+        <InputRange
+          title="Срок лизинга"
+          type="months"
+          value={leasingPeriod}
+          setValue={setLeasingPeriod}
+          min={MIN_LEASING_PERIOD}
+          max={MAX_LEASING_PERIOD}
+        />
       </div>
-    </section>
+      <div className="calculator__info">
+        <div className="calculator__cost">
+          <TextField title="Сумма договора лизинга" content={leasingAgreementValue} symbol="₽" />
+          <TextField title="Ежемесячный платеж" content={monthPay} symbol="₽" />
+        </div>
+        <Button disabled={isDisabled} onClick={handleClick}>
+          Оставить заявку
+        </Button>
+      </div>
+    </main>
   );
 };
 

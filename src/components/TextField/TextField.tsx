@@ -4,17 +4,17 @@ import './TextField.scss';
 
 interface ITextFieldProps {
   title: string;
-  price: string;
-  currency: '₽';
+  content: number;
+  symbol: '₽';
 }
 
-const TextFieldComponent: FC<ITextFieldProps> = ({ title, price, currency }) => {
+const TextFieldComponent: FC<Readonly<ITextFieldProps>> = ({ title, content, symbol }) => {
   return (
     <div className="text-field">
       <span className="text-field__title gilroy-s">{title}</span>
-      <div className="text-field__price nekst-black-xl">
-        <span>{price}</span>
-        <span className="text-field__currency">{currency}</span>
+      <div className="text-field__content nekst-black-xl">
+        <span>{content.toLocaleString('ru')}</span>
+        <span className="text-field__symbol">{symbol}</span>
       </div>
     </div>
   );
