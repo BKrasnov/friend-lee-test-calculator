@@ -1,4 +1,4 @@
-import { FC, memo, useMemo, useState } from 'react';
+import { FC, memo, useCallback, useMemo, useState } from 'react';
 
 import { InputRange } from '../../components/InputRange';
 import { Button } from '../../components/Button';
@@ -11,10 +11,8 @@ import './CalculatorPage.scss';
 
 const MIN_CAR_COST = 1_500_000;
 const MAX_CAR_COST = 10_000_000;
-
 const MIN_PERCENT_CONTRIBUTION = 10;
 const MAX_PERCENT_CONTRIBUTION = 60;
-
 const MIN_LEASING_PERIOD = 6;
 const MAX_LEASING_PERIOD = 120;
 
@@ -23,17 +21,23 @@ const CalculatorPageComponent: FC = () => {
   const [percent, setPercent] = useState(INITIAL_PERCENT);
   const [leasingPeriod, setLeasingPeriod] = useState(INITIAL_LEASING_PERIOD);
 
+  const [isDisabled, setIsDisabled] = useState(false);
+
   const contribution = Math.ceil((carCost * percent) / 100);
 
   const monthPay = useMemo(
     () => calculateMonthPay(carCost, contribution, leasingPeriod),
     [carCost, contribution, leasingPeriod]
   );
-
   const leasingAgreementValue = useMemo(
     () => calculateLeasingAgreementValue(carCost, contribution, leasingPeriod),
     [carCost, contribution, leasingPeriod]
   );
+
+  const handleClick = useCallback(() => {
+    console.log(1);
+    setIsDisabled((prevState) => !prevState);
+  }, []);
 
   return (
     <main className="calculator">
@@ -72,7 +76,9 @@ const CalculatorPageComponent: FC = () => {
               <TextField title="Сумма договора лизинга" price={leasingAgreementValue} currency="₽" />
               <TextField title="Ежемесячный платеж" price={monthPay} currency="₽" />
             </div>
-            <Button>Оставить заявку</Button>
+            <Button disabled={isDisabled} onClick={handleClick}>
+              Оставить заявку
+            </Button>
           </div>
         </form>
       </div>

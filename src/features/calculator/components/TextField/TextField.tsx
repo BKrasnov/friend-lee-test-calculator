@@ -8,7 +8,7 @@ interface ITextFieldProps {
   currency: '₽';
 }
 
-const TextFieldComponent: FC<ITextFieldProps> = ({ title, price, currency }) => {
+const TextFieldComponent: FC<Readonly<ITextFieldProps>> = ({ title, price, currency }) => {
   return (
     <div className="text-field">
       <span className="text-field__title gilroy-s">{title}</span>

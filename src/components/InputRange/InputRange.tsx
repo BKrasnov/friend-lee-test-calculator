@@ -1,4 +1,5 @@
 import { FC, memo } from 'react';
+
 import { INITIAL_PERCENT } from '../../core/constants/calculator';
 
 import './InputRange.scss';
@@ -32,7 +33,8 @@ const renderInputRangeValue = (
   }
 };
 
-const InputRangeComponent: FC<IInputProps> = ({
+/** @todo Перенести компонент в feature/calculator, так как он связан именно с ним */
+const InputRangeComponent: FC<Readonly<IInputProps>> = ({
   title,
   value,
   setValue,
@@ -41,6 +43,7 @@ const InputRangeComponent: FC<IInputProps> = ({
   max,
   percent = INITIAL_PERCENT,
 }) => {
+  /** @todo Попробовать убрать все эти ифы. */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\s/g, '');
     if (Number(value) > max) {
