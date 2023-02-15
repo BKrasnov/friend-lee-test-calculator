@@ -1,8 +1,8 @@
 import { FC, memo, useCallback, useMemo, useState } from 'react';
 
-import { InputRange } from '../../components/InputRange';
+import { InputRange } from './components/InputRange';
 import { Button } from '../../components/Button';
-import { TextField } from './components/TextField';
+import { TextField } from '../../components/TextField';
 
 import { INITIAL_CAR_COST, INITIAL_LEASING_PERIOD, INITIAL_PERCENT } from '../../core/constants/calculator';
 import { calculateLeasingAgreementValue, calculateMonthPay } from '../../core/utils/calculator';

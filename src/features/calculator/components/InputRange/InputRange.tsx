@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 
-import { INITIAL_PERCENT } from '../../core/constants/calculator';
+import { INITIAL_PERCENT } from '../../../../core/constants/calculator';
 
 import './InputRange.scss';
 
